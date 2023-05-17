@@ -1,7 +1,6 @@
 import PySimpleGUI as sg
 import biai
 import windowinfo
-import numbers
 import string
 
 # returns True when passed string can be converted to int or float, False otherwise
@@ -56,12 +55,13 @@ def predict(neuralNetwork: biai.NeuralNetwork, window, values):
         float(values['dpf']),
         int(values['age'])
     ]])
-    result =  "Diebetes" if prediction[0][0] > 0.5 else "Healthy"
+    result =  "Diabetes" if prediction[0][0] > 0.5 else "Healthy"
+    
     result = result + '(' + str(prediction[0][0]) + ')'
     window['_RESULT_'].Update(result)
 
 window = sg.Window("Image Viewer", windowinfo.layout)
-nn = biai.NeuralNetwork(64, "model")
+nn = biai.NeuralNetwork(21, "model")
 
 while True:
     event, values = window.read()
